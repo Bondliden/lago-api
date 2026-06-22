@@ -3152,6 +3152,7 @@ input CreateInvoiceInput {
   fees: [FeeInput!]!
   invoiceCustomSection: InvoiceCustomSectionsReferenceInput
   paymentMethod: PaymentMethodReferenceInput
+  purchaseOrderNumber: String
   voidedInvoiceId: ID
 }
 
@@ -6041,6 +6042,7 @@ input FetchDraftInvoiceTaxesInput {
   fees: [FeeInput!]!
   invoiceCustomSection: InvoiceCustomSectionsReferenceInput
   paymentMethod: PaymentMethodReferenceInput
+  purchaseOrderNumber: String
   voidedInvoiceId: ID
 }
 
@@ -6629,6 +6631,7 @@ type Invoice {
   prepaidGrantedCreditAmountCents: BigInt
   prepaidPurchasedCreditAmountCents: BigInt
   progressiveBillingCreditAmountCents: BigInt!
+  purchaseOrderNumber: String
   readyForPaymentProcessing: Boolean!
   refundableAmountCents: BigInt!
   regeneratedInvoiceId: String
