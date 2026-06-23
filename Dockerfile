@@ -22,7 +22,7 @@ RUN gem install bundler --no-document -v '2.6.8'
 
 ENV BUNDLE_WITH=${BUNDLE_WITH:-}
 ENV BUNDLE_WITHOUT="development test"
-RUN --mount=type=secret,id=BUNDLE_GEMS__CONTRIBSYS__COM,env=BUNDLE_GEMS__CONTRIBSYS__COM \
+RUN \
   bundle config build.nokogiri --use-system-libraries &&\
   bundle install --jobs=3 --retry=3
 
