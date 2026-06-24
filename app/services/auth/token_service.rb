@@ -6,6 +6,14 @@ module Auth
     ALGORITHM = "HS256"
     LAGO_TOKEN_HEADER = "x-lago-token"
 
+    # Duración de la sesión (segundos). Por defecto 3h; se puede alargar con la variable
+    # LAGO_TOKEN_TTL_SECONDS (p. ej. 2592000 = 30 días) para no tener que volver a iniciar
+    # sesión tan a menudo. El token además se auto-renueva mientras la app esté en uso.
+    def self.ttl_seconds
+      ttl = ENV["LAGO_TOKEN_TTL_SECONDS"].to_i
+      ttl.positive? ? ttl : THREE_HOURS
+    end
+
     def self.encode(user: nil, user_id: nil, **extra)
       return nil if (user_id || user&.id).blank?
 
@@ -37,7 +45,7 @@ module Auth
     def self.payload(user: nil, user_id: nil, **extra)
       {
         sub: user_id || user.id,
-        exp: Time.current.to_i + THREE_HOURS
+        exp: Time.current.to_i + ttl_seconds
       }.merge(extra)
     end
   end
